@@ -15,4 +15,4 @@ vim.api.nvim_set_keymap('v', '<Leader>ett', ":lua require'ecsstractor'.ecsstract
 ## Using
 
 
-Select the html code with bem classes and use your keymap generated bem scss code copied to your clipboard.
+Select the html code with bem classes and use your keymap, generated bem scss code copied to your clipboard.
