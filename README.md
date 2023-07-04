@@ -2,12 +2,14 @@
 
 ## Instaling
 
-'----'
+```
+'SerMeliodas/ecsstractor.nvim'
+```
 
 Just bind a plugin command to your preferd keymap and you can use it.
 
 ```
-
+vim.api.nvim_set_keymap('v', '<Leader>ett', ":lua require'ecsstractor'.ecsstractor()<CR>",{})
 ```
 
 ## Using
