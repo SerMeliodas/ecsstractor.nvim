@@ -31,22 +31,29 @@ local function parse()
   local selection = get_selection()
 
   local classes = {}
+  local seen = {}
 
   local i = 0
   local j = 0
 
   while true do
-    i, j = string.find(selection, 'class="[^"]*"', i+1)
+    i, j = string.find(selection, 'class="[^"]*"', i + 1)
 
     if i == nil then break end
 
-    local cleaned_class = clean_class(string.sub(selection,i,j))
+    local cleaned_class = clean_class(string.sub(selection, i, j))
 
     if type(cleaned_class) == "string" then
-      table.insert(classes, clean_class(string.sub(selection, i, j)))
+      if not seen[cleaned_class] then
+        table.insert(classes, cleaned_class)
+        seen[cleaned_class] = true
+      end
     else
       for k, a in ipairs(cleaned_class) do
-        table.insert(classes,a)
+        if not seen[a] then
+          table.insert(classes, a)
+          seen[a] = true
+        end
       end
     end
   end
