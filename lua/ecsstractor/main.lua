@@ -49,7 +49,7 @@ local function parse()
         seen[cleaned_class] = true
       end
     else
-      for k, a in ipairs(cleaned_class) do
+      for _, a in ipairs(cleaned_class) do
         if not seen[a] then
           table.insert(classes, a)
           seen[a] = true
@@ -89,13 +89,14 @@ end
 
 local function generate_bem(result)
     local code = ""
+    local shiftwidth = vim.api.nvim_get_option('shiftwidth')
 
     for block, elements in pairs(result) do
         code = code .. "." .. block .. " {\n"
         for _, element in ipairs(elements) do
-            code = code .. "    &" .. "__" .. element .. " {\n"
-            code = code .. "        /* Styles for " .. block .. "__" .. element .. " */\n"
-            code = code .. "    }\n"
+            code = code .. string.rep(' ', shiftwidth) .. "&" .. "__" .. element .. " {\n"
+            code = code .. string.rep(' ', 2*shiftwidth).."/* Styles for " .. block .. "__" .. element .. " */\n"
+            code = code .. string.rep(' ', shiftwidth).. "}\n"
         end
         code = code .. "}\n\n"
     end
